@@ -225,7 +225,7 @@ chat_frame = customtkinter.CTkFrame(root, width=550, height=540, fg_color='#3131
 chat_frame.pack(fill='both')
 
 # Create chat box
-chat_box = customtkinter.CTkTextbox(root, width=520, height=450, fg_color='#313131', bg_color='#313131', border_color='#818181', border_width=1, autoscroll=True)
+chat_box = customtkinter.CTkTextbox(root, width=520, height=450, fg_color='#313131', bg_color='#313131', border_color='#818181', border_width=1)
 chat_box.place(relx=0.3315, rely=0.125)
 
 # Create message entry field
