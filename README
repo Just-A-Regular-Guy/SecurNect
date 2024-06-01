@@ -1,0 +1,9 @@
+SECURNECT
+version: beta(0.1) 
+Currently, the program is in its early stages and only intended for accounting and data storage testing.
+
+credentials:
+
+admin : admin
+user1 : pass1
+user2 : pass2
