@@ -4,26 +4,26 @@ SecurNect is a secure connection management system, currently in its beta versio
 
 ## Project Structure
 
-SecurNect/
-├── client/
-│ ├── etc/shadow/
-│ │ ├── client_private.pem
-│ │ └── server_public.pem
-│ ├── securnect.py
-│ └── top.png
-├── server/
-│ ├── etc/shadow/
-│ │ ├── client_public.pem
-│ │ └── server_private.pem
-│ ├── admin_portal.py
-│ └── server.py
-├── cryptid.py (key generation script)
-├── LICENSE
-└── README.md
+SecurNect/  
+├── client/  
+│ ├── etc/shadow/  
+│ │ ├── client_private.pem  
+│ │ └── server_public.pem  
+│ ├── securnect.py  
+│ └── top.png  
+├── server/  
+│ ├── etc/shadow/  
+│ │ ├── client_public.pem  
+│ │ └── server_private.pem  
+│ ├── admin_portal.py  
+│ └── server.py  
+├── cryptid.py (key generation script)  
+├── LICENSE  
+└── README.md  
 
-## Getting Started
+# Getting Started
 
-### Prerequisites
+## Prerequisites
 
 - Python 3.x
 - Required Python packages (can be found in `requirements.txt` if available):
@@ -31,9 +31,9 @@ SecurNect/
    pip install -r requirements.txt
    ```
 
-### Installation
+## Installation  
 
-- Server-Side
+### Server-Side
 
 1. Clone the repository on the server:
    ```bash
@@ -45,15 +45,15 @@ SecurNect/
    ```bash
    python3 cryptid.py
    ```
+  
+### Client-Side
 
-- Client-Side
-
-3. Clone the repository on the client computers:
+1. Clone the repository on the client computers:
    ```bash
    git clone https://github.com/Just-A-Regular-Guy/SecurNect.git
    ```
    
-4. Move the keys generated in /server/etc/ on the server, to /client/etc/shadow on the client computers.
+2. Move the keys generated in /server/etc/ on the server, to /client/etc/shadow on the client computers.
 
 ## Usage
 
