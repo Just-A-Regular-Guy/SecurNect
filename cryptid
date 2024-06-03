@@ -11,18 +11,18 @@ client_public_key, client_private_key = rsa.newkeys(2048)
 def generate_server_keys():
     server_public_key, server_private_key = rsa.newkeys(2048)
 
-    with open(os.path.join('server','etc', 'server_public.pem'), 'wb') as f:
+    with open(os.path.join('etc', 'server_public.pem'), 'wb') as f:
         f.write(server_public_key.save_pkcs1('PEM'))
 
-    with open(os.path.join('server','etc','shadow', 'server_private.pem'), 'wb') as f:
+    with open(os.path.join('etc','shadow', 'server_private.pem'), 'wb') as f:
         f.write(server_private_key.save_pkcs1('PEM'))
 
 def load_server_keys():
-    with open(os.path.join('server','etc', 'server_puublic.pem'), 'rb') as f:
+    with open(os.path.join('etc', 'server_puublic.pem'), 'rb') as f:
         global server_public_key
         server_public_key = rsa.PublicKey.load_pkcs1(f.read())
 
-    with open(os.path.join('server','etc','shadow', 'server_private.pem'), 'rb') as f:
+    with open(os.path.join('etc','shadow', 'server_private.pem'), 'rb') as f:
         global server_private_key
         server_private_key = rsa.PrivateKey.load_pkcs1(f.read())
         
@@ -30,18 +30,18 @@ def load_server_keys():
 def generate_client_keys():
     client_public_key, client_private_key = rsa.newkeys(2048)
 
-    with open(os.path.join('server','etc','shadow', 'client_public.pem'), 'wb') as f:
+    with open(os.path.join('etc','shadow', 'client_public.pem'), 'wb') as f:
         f.write(client_public_key.save_pkcs1('PEM'))
 
-    with open(os.path.join('server','etc', 'client_private.pem'), 'wb') as f:
+    with open(os.path.join('etc', 'client_private.pem'), 'wb') as f:
         f.write(client_private_key.save_pkcs1('PEM'))
 
 def load_client_keys():
-    with open(os.path.join('server','etc','shadow', 'client_puublic.pem'), 'rb') as f:
+    with open(os.path.join('etc','shadow', 'client_puublic.pem'), 'rb') as f:
         global client_public_key
         client_public_key = rsa.PublicKey.load_pkcs1(f.read())
 
-    with open(os.path.join('server','etc', 'client_private.pem'), 'rb') as f:
+    with open(os.path.join('etc', 'client_private.pem'), 'rb') as f:
         global client_private_key
         client_private_key = rsa.PrivateKey.load_pkcs1(f.read())
 
