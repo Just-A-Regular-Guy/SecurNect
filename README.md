@@ -16,9 +16,7 @@ SecurNect/
 │ │ ├── shadow/  
 │ │ │ ├── client_public.pem  
 │ │ │ └── server_private.pem  
-│ │ └── client_keys/  
-│ │   ├── client_private.pem  
-│ │   └── server_public.pem  
+│ │ └── client_keys/   
 │ ├── admin_portal.py  
 │ └── server.py  
 ├── cryptid.py (key generation script)  
