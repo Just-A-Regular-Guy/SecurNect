@@ -1,6 +1,6 @@
 # SecurNect
 
-SecurNect is a secure connection management system, currently in its beta version (1.0). The project is in its early stages and primarily intended for testing purposes.
+SecurNect is a secure connection messaging system, currently in its beta version (1.0). The project is in its early stages and primarily intended for testing purposes.
 
 ## Project Structure
 
