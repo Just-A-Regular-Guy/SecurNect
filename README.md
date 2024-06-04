@@ -53,7 +53,7 @@ SecurNect/
    git clone https://github.com/Just-A-Regular-Guy/SecurNect.git
    ```
    
-2. Move the keys generated in /server/etc/ on the server, to /client/etc/shadow on the client computers.
+2. Move the keys generated in /server/etc/client_keys on the server, to /client/etc/shadow on the client devices.
 
 ## Usage
 
