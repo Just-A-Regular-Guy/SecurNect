@@ -2,10 +2,10 @@ import rsa
 import os
 
 # Define the paths
-server_public_key_path = os.path.join('server', 'etc', 'client_keys', 'server_public.pem')
-server_private_key_path = os.path.join('server', 'etc', 'shadow', 'server_private.pem')
-client_public_key_path = os.path.join('server', 'etc', 'shadow', 'client_public.pem')
-client_private_key_path = os.path.join('server', 'etc', 'client_keys', 'client_private.pem')
+server_public_key_path = os.path.join('etc', 'client_keys', 'server_public.pem')
+server_private_key_path = os.path.join('etc', 'shadow', 'server_private.pem')
+client_public_key_path = os.path.join('etc', 'shadow', 'client_public.pem')
+client_private_key_path = os.path.join('etc', 'client_keys', 'client_private.pem')
 
 # Ensure directories exist
 os.makedirs(os.path.dirname(server_public_key_path), exist_ok=True)
