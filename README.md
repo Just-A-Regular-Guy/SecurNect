@@ -12,9 +12,13 @@ SecurNect/
 │ ├── securnect.py  
 │ └── top.png  
 ├── server/  
-│ ├── etc/shadow/  
-│ │ ├── client_public.pem  
-│ │ └── server_private.pem  
+│ ├── etc/  
+| | ├── shadow/  
+│ │ | ├── client_public.pem  
+│ │ │ └── server_private.pem  
+| | └── client_keys/  
+│ │   ├── client_private.pem  
+│ │   └── server_public.pem  
 │ ├── admin_portal.py  
 │ └── server.py  
 ├── cryptid.py (key generation script)  
