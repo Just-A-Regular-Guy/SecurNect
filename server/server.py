@@ -164,4 +164,3 @@ if __name__=="__main__":
     ACCEPT_THREAD.start() # Starts the infinite loop.
     ACCEPT_THREAD.join()
     SERVER.close()
-
