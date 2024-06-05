@@ -10,6 +10,16 @@ import os
 import time
 import rsa
 from PIL import Image
+import sys
+
+# GUI global settings
+customtkinter.set_appearance_mode('dark')
+customtkinter.set_default_color_theme('dark-blue')
+
+root = customtkinter.CTk()
+root.geometry('800x600')
+root.title('Securnect')
+root.resizable(width=False, height=False)
 
 # Set current directory
 current_directory = os.getcwd()
@@ -69,8 +79,7 @@ def send(event=None): # event is passed by binder
     client_socket.send(encrypted_message)
     if msg == "{quit}":
         # Close client socket and quit GUI
-        client_socket.close()
-        root.quit()
+        on_closing()
 
 # Function to handle window closing
 #def on_closing(event=None):
@@ -91,12 +100,13 @@ def send(event=None): # event is passed by binder
 #    print("Disconnected from the server.")
 #
 
+#######################################################################################
+
 # Function to handle window closing
 def on_closing(event=None):
     """This function is to be called when the window is closed."""
     print("on_closing() called")
     disconnect()
-    print("Disconnecting from server...")
     time.sleep(5)  # Wait for 5 seconds to allow the application to close
     print("Waiting for 5 seconds...")
     if client_socket.fileno()!= -1:  # Check if the socket is still connected
@@ -106,12 +116,14 @@ def on_closing(event=None):
         print("Socket closed, quitting normally")
         pass
     print("Quitting application...")
-    root.quit()
+    root.destroy()
+    quit()
+    
     
 def disconnect():
     """Handles disconnection from the server."""
     print("disconnect() called")
-    message_entry.insert(0, "{quit}")  # Tell server we want to exit
+    message_entry.insert(0, '{quit}')  # Tell server we want to exit
     print("Sending quit message to server...")
     send()
     print("Closing socket...")
@@ -141,19 +153,12 @@ def login():
     client_socket.connect(ADDR)
 
     # Start receive thread
-    receive_thread = Thread(target=receive)
+    receive_thread = Thread(target=receive, daemon=True)
     receive_thread.start()
 
 ################################################## START OF GUI ##################################################
 
-# GUI global settings
-customtkinter.set_appearance_mode('dark')
-customtkinter.set_default_color_theme('dark-blue')
 
-root = customtkinter.CTk()
-root.geometry('800x600')
-root.title('Securnect')
-root.resizable(width=False, height=False)
 #root.iconbitmap(os.path.join(current_directory, 'icon.ico'))
 #root.iconbitmap(os.path.join(current_directory,'Python', 'securnect', 'client', 'icon.ico'))
 
@@ -256,7 +261,7 @@ def uptime():
         time.sleep(1)  # Wait for 1 second
 
 # Start uptime thread
-threading.Thread(target=uptime).start()
+threading.Thread(target=uptime, daemon=True).start()
 root.after(1000, uptime_update)  # Update GUI every second
 root.protocol("WM_DELETE_WINDOW", on_closing)
 
