@@ -60,6 +60,10 @@ def receive():
             if clear_message == 'PASS':
                 # Send credentials to server
                 client_socket.send(rsa.encrypt(credentials.encode(), client_private_key))
+            elif clear_message == "Invalid username or password":
+                print('bad authorization detected')
+                client_socket.close()
+                break
             else:
                 # Display message in chat box
                 chat_box.insert(tkinter.END, '{}\n'.format(clear_message))
@@ -145,16 +149,24 @@ def login():
 
     UNAME = entry_username.get()
     PASSWD = entry_password.get()
-    credentials = f'{UNAME}@{PASSWD}'
-    print(credentials)
+    
+    if HOST != '' and port != '' and UNAME != '' and PASSWD != '':
+        credentials = f'{UNAME}@{PASSWD}'
+        print(credentials)
 
-    # Connect to server
-    ADDR = (HOST, PORT)
-    client_socket.connect(ADDR)
+        # Connect to server
+        ADDR = (HOST, PORT)
+        client_socket.connect(ADDR)
 
-    # Start receive thread
-    receive_thread = Thread(target=receive, daemon=True)
-    receive_thread.start()
+        # Start receive thread
+        receive_thread = Thread(target=receive, daemon=True)
+        receive_thread.start()
+    else:
+        print('please compile all the input fields...')
+        pass
+        
+    
+        
 
 ################################################## START OF GUI ##################################################
 
