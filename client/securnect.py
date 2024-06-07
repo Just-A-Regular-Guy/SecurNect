@@ -64,6 +64,28 @@ def receive():
                 print('bad authorization detected')
                 client_socket.close()
                 break
+            elif clear_message == '{file}':
+                ''' Receive filename '''
+                # Receive message from server
+                msg = client_socket.recv(BUFSIZ)
+                # Decrypt message
+                clear_message = rsa.decrypt(msg, server_public_key).decode()
+                print(msg)
+                print(clear_message)
+                # Display message in chat box
+                chat_box.insert(tkinter.END, '{}\n'.format(clear_message))
+                ''' Get filepath save'''
+                save_path = customtkinter.filedialog.asksaveasfilename()
+                
+                with open(save_path, 'wb') as f:
+                    while True:
+                        # Riceve i dati dal client in blocchi di 1024 byte
+                        data = client_socket.recv(1024)
+                        if not data:
+                            break
+                        # Scrive i dati nel file
+                        f.write(data)
+                
             else:
                 # Display message in chat box
                 chat_box.insert(tkinter.END, '{}\n'.format(clear_message))
@@ -84,6 +106,39 @@ def send(event=None): # event is passed by binder
     if msg == "{quit}":
         # Close client socket and quit GUI
         on_closing()
+
+# Function to handle sending of files
+def send_file(event=None): # event is passed by binder
+    """Handles sending of files."""
+    
+    # Ottieni il percorso del file
+    file_path = customtkinter.filedialog.askopenfilename()
+    print(file_path)
+    # Ottieni solo il nome del file
+    file_name = os.path.basename(file_path)
+    print(file_name)
+    
+    msg = "{file}"
+    # Encrypt message from input field
+    encrypted_message = rsa.encrypt((msg).encode(), client_private_key)
+    # Send message to server
+    client_socket.send(encrypted_message)
+    
+    msg = file_name
+    # Encrypt message from input field
+    encrypted_message = rsa.encrypt((msg).encode(), client_private_key)
+    # Send message to server
+    client_socket.send(encrypted_message)
+    
+    with open(file_path, 'rb') as f:
+        while True:
+            # Legge i dati dal file in blocchi di 1024 byte
+            data = rsa.encrypt((f.read(1024)).encode(), client_private_key)
+            if not data:
+                break
+            # Invia i dati al server
+            client_socket.sendall(data)
+    
 
 # Function to handle window closing
 #def on_closing(event=None):
@@ -246,9 +301,13 @@ chat_box = customtkinter.CTkTextbox(root, width=520, height=450, fg_color='#3131
 chat_box.place(relx=0.3315, rely=0.125)
 
 # Create message entry field
-message_entry = customtkinter.CTkEntry(root, width=420, height=40, placeholder_text='Type your message here...', fg_color='#404040', bg_color='#313131', border_color='#818181', border_width=1)
+message_entry = customtkinter.CTkEntry(root, width=390, height=40, placeholder_text='Type your message here...', fg_color='#404040', bg_color='#313131', border_color='#818181', border_width=1)
 message_entry.place(relx=0.3315, rely=0.905)
 message_entry.bind("<Return>", command=send)
+
+# Create file button
+file_enter = customtkinter.CTkButton(root, width=40, height=40, text='#', fg_color='#af0000', bg_color='#313131', font=customtkinter.CTkFont(weight='bold'), command=send_file)
+file_enter.place(relx=0.825, rely=0.905)
 
 # Create send button
 message_enter = customtkinter.CTkButton(root, width=80, height=40, text='ENTER', fg_color='#af0000', bg_color='#313131', font=customtkinter.CTkFont(weight='bold'), command=send)
