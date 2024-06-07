@@ -125,6 +125,25 @@ def handle_client(client, nickname):
         print(msg)
         if msg !=("{quit}"):
             broadcast(msg, name+": ")
+        elif msg == "{file}":
+            broadcast(msg, name+": ")
+            # Get filename
+            encrypted_msg = client.recv(BUFSIZ)
+            msg = rsa.decrypt(encrypted_msg, client_public_key).decode()
+            print(encrypted_msg)
+            print(msg)
+            # Send filename
+            broadcast(msg, 'filename'+": ")
+            # Get file
+            while True:
+                # Riceve i dati dal client in blocchi di 1024 byte
+                data = client.recv(1024)
+                if not data:
+                    break
+            for sock in clients:
+                # Inoltra i dati ai client di destinazione
+                sock.sendall(data) 
+            
         else:
             client.send(rsa.encrypt("{quit}".encode(), server_private_key))
             client.close()
